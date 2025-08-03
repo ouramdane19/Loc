@@ -1,1 +1,35 @@
-# Loc
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send My Location</title>
+</head>
+<body>
+  <h1>Sending your location...</h1>
+
+  <script>
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        fetch("https://webhook.site/59ad444f-ad05-4fef-8699-e83be8fb306f", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            latitude: lat,
+            longitude: lon,
+            timestamp: new Date().toISOString()
+          })
+        });
+
+        document.body.innerHTML = `<p>Location sent: ${lat}, ${lon}</p>`;
+      },
+      function(error) {
+        document.body.innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    );
+  </script>
+</body>
+</html>
