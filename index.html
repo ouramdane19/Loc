@@ -12,17 +12,23 @@
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        fetch("https://webhook.site/59ad444f-ad05-4fef-8699-e83be8fb306f?device=luggage", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            latitude: lat,
-            longitude: lon,
-            timestamp: new Date().toISOString()
-          })
-        });
+        fetch("https://webhook.site/your-id", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    latitude: lat,
+    longitude: lon,
+    timestamp: new Date().toISOString()
+  })
+})
+.then(res => {
+  console.log("Sent successfully:", res.status);
+})
+.catch(err => {
+  console.error("Fetch error:", err);
+});
 
         document.body.innerHTML = `<p>Location sent: ${lat}, ${lon}</p>`;
         window.location.href = `https://maps.google.com/?q=${lat},${lon}`;
